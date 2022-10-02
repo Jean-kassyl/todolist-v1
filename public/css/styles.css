@@ -1,0 +1,54 @@
+*, *::before, *::after {
+    padding: 0;
+    margin: O;
+    box-sizing: border-box;
+}
+
+
+html {
+    font-size: 100%;
+}
+
+
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    background-color:lavender;
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    
+}
+
+form input {
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    border: none;
+    outline: none;
+    background-color: lavender;
+    border-bottom: 1px solid transparent;
+}
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+form input:focus {
+    border-bottom: 1px solid lightgray;
+}
+
+.btn {
+    outline: none;
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    background-color:lightblue;
+    cursor: pointer;
+}
