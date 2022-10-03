@@ -23,6 +23,30 @@ body {
     
 }
 
+h1 {
+    background-color: cornflowerblue;
+    padding: 5px 8px;
+    text-align: center;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin: 0;
+
+}
+
+ul {
+    margin: 0;
+}
+
+
+.item {
+    padding: 8px 5px;
+    background-color: lightsteelblue;
+}
+
+.item:not(.item:first-child) {
+    border-top: 1px solid cornflowerblue;
+}
+
 form input {
     padding: 6px 10px;
     font-size: 1.1rem;
@@ -30,15 +54,18 @@ form input {
     outline: none;
     background-color: lavender;
     border-bottom: 1px solid transparent;
+    width: 100%;
 }
 
 form {
     display: flex;
     align-items: center;
+   
 }
 
 form input:focus {
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid cornflowerblue;
+
 }
 
 .btn {
@@ -49,6 +76,7 @@ form input:focus {
     height: 25px;
     border-radius: 50%;
     border: none;
-    background-color:lightblue;
+    background-color:cornflowerblue;
     cursor: pointer;
 }
+

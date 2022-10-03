@@ -14,8 +14,13 @@
         <ul>
             <% if(todos.length > 0){  %>
                 <% todos.forEach( todo => {  %> 
-                    <li><%= todo %></li>
+                    <li class="item">
+                        <input type="radio">
+                        <%= todo %>
+                    </li>
                 <% }) %>  
+            <% } else { %>
+                <li class="item">No todos at the moment</li>
             <% } %>
         </ul>
 
