@@ -16,7 +16,7 @@
                 <% todos.forEach( todo => {  %> 
                     <li class="item">
                         <input type="radio">
-                        <%= todo %>
+                        <span><%= todo %></span>
                     </li>
                 <% }) %>  
             <% } else { %>
@@ -25,9 +25,12 @@
         </ul>
 
         <form action="/" method="post">
-            <input type="text" name="newTodo" placeholder="add a new todo"> 
+            <input type="text" name="newTodo" placeholder="add a new todo" autocomplete="off"> 
             <button class="btn">&#43;</button>
         </form>
     </div>
+
+    <script src="js/main.js">
+    </script>
 </body>
 </html>

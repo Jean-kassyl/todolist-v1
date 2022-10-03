@@ -23,6 +23,10 @@ body {
     
 }
 
+.todo-bloc {
+    max-width: 600px;
+}
+
 h1 {
     background-color: cornflowerblue;
     padding: 5px 8px;
@@ -41,6 +45,9 @@ ul {
 .item {
     padding: 8px 5px;
     background-color: lightsteelblue;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .item:not(.item:first-child) {
@@ -79,4 +86,5 @@ form input:focus {
     background-color:cornflowerblue;
     cursor: pointer;
 }
+
 
