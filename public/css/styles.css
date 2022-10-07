@@ -16,16 +16,26 @@ ul {
 }
 
 body {
-    background-color:lavender;
-    display: grid;
+    background-color:lavender;   
+}
+
+
+.view {
+    position: relative;
+    left: 30%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     place-items: center;
-    
+    padding-top: 80px;
+    gap: 30px;
 }
 
 .todo-bloc {
     max-width: 800px;
     min-width: 500px;
+    
 }
 
 h1 {
@@ -50,6 +60,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 5px;
+    position: relative;
 }
 
 .item:not(.item:first-child) {
@@ -61,7 +72,7 @@ form input {
     font-size: 1.1rem;
     border: none;
     outline: none;
-    background-color: lavender;
+    background-color: transparent;
     border-bottom: 2px solid transparent;
     width: 100%;
 }
@@ -93,3 +104,82 @@ form input:focus {
 }
 
 
+.aside {
+    width: 25%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: lightsteelblue;
+    border-right: 10px solid cornflowerblue;
+    text-align: center;
+}
+
+.aside h3 {
+    font-size: 1.4rem;
+
+}
+
+.categories {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+.categories li{
+    display: inline-flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+}
+
+.del {
+    background-color: cornflowerblue;
+    padding: 8px;
+    color: lavender;
+}
+
+.cat-text {
+    padding: 6px;
+    border: 1px solid cornflowerblue;
+
+}
+
+form.cat-form {
+    max-width: 800px;
+    min-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    background-color: hsla(214, 41%, 78%, .8)
+    
+}
+
+.cat-btn {
+    padding: 13px 8px;
+    outline: none;
+    border: none;
+    background-color: cornflowerblue;
+    color: lavender;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.trash {
+    display: -moz-inline-grid;
+    display: -ms-inline-grid;
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: red;
+    color: lavender;
+    position: absolute;
+    right: 5px;
+    top: 13p;
+    visibility: hidden;
+}
+
+.item:hover .trash {
+    visibility: visible;
+}
