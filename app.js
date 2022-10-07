@@ -28,6 +28,12 @@ const singleTodoSchema = new mongoose.Schema({
     }
 })
 
+const categorySchema = new mongoose.Schema({
+    category: String,
+    date: String
+})
+
+const Categories = mongoose.model("categorie",categorySchema )
 
 const saveTodos = (items, singleItem) => {
     const Todo = mongoose.model(items, singleTodoSchema);
@@ -49,59 +55,26 @@ const saveTodos = (items, singleItem) => {
             todo.save()
         }
     })
-    // if(!holders.hasOwnProperty(items)){
-    //     id = 1;
-    //     holders[items] = []
-    // }else {
-    //     id = holders[items].length + 1
-    // }
     
-    // const todo = new Todo({
-    //     _id: id,
-    //     content: singleItem
-    // })
-
-    // todo.save()
-    // if(!holders[items].length > 0){
-    //     holders[items] = [todo]
-    // }
-
-
-    // const Todo = mongoose.model("homeitems", singleTodoSchema)
-    // if(holders.hasOwnProperty("homeitems")){
-    //     Todo.find({}, function(err, result){
-    //         if(err){
-    //             console.log(err)
-    //         }else {
-    //             console.log("result 1", result)
-    //             holders["homeitems"] = result
-    //             res.render('List', {date: currentDate, todos: holders["homeitems"], title: 'home' })
-    //         }
-    //     })
-        
-        
-    // } else {
-    //     res.render('List', {date: currentDate, todos: [], title: 'home' })
-    // }
 
 }
 
 
 
-function getTodos(items, res){
+function getTodos(items, res, title){
     const Todo = mongoose.model(items, singleTodoSchema)
     Todo.find({}, function(err, todos){
         if(err){
             console.log(err)
         }else {
-            res.render('List', {date: currentDate, todos: todos, title: 'home' })
+            res.render('List', {date: currentDate, todos: todos, title: title })
         }
     })
 }
 
 
 
-// the routee definition
+// the route definition
 
 app.get('/', function(req, res){
     
@@ -116,7 +89,7 @@ app.post('/', (req, res) => {
     //here goes the code
 
    
-    saveTodos("homeitems", todoData)
+    saveTodos("homeitems", todoData, 'home')
 
 
     // end it here
@@ -125,19 +98,35 @@ app.post('/', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/:category', function(req, res){
-    let route = req.params.category
-    if(!holders.hasOwnProperty(route)){
-        holders[route] = []
-    }
-    res.render('List', {title: route, todos: holders[route]})
+app.get('/categories', function(req, res){
+    let route = req.query.category
+    let newList = route.toLowerCase().split(' ').join('_')
+    newList = newList.endsWith('s')? newList: newList + 's';
+
+    const newCategory = new Categories({
+        category: newList,
+        date: currentDate
+    })
+    Categories.find({}, function(err, categories){
+        if(err){
+            console.log(err)
+        }else {
+            let check = categories.find(category => category.name === newList)
+            if(!check){
+                newCategory.save()
+            }
+        }
+    })
+   
+    getTodos(newList, res, route)
 })
 
-app.post('/:category', function(req, res){
-    let route = req.params.category
+app.post('/categories', function(req, res){
+    let route = req.query.category
     let todo = req.body.newTodo
-    holders[route].push(todo)
-    res.redirect('/' + route)
+    console.log("route", route)
+    console.log('todo', todo)
+    res.redirect('/')
 })
 
 const PORT = process.env.PORT || '3001'

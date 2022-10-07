@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="view">
-        
+         
         <div>
-            <form action="" class="cat-form">
+            <form action="/categories" method="GET" class="cat-form">
                 <input type="text" name="category" placeholder="create a specific category">
                 <button class="cat-btn">ok</button>
             </form>
@@ -33,7 +33,7 @@
                 <% } %>
             </ul>
     
-            <form  action= <%= title === 'home'? '/': '/' + title %> method="post">
+            <form  action= <%= title === 'home'? '/': '/categories/?category=' + title %> method="post">
                 <input type="text" name="newTodo" placeholder="add a new todo" autocomplete="off"> 
                 <button class="btn">&#43;</button>
             </form>
