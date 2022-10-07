@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // mongoose connection
 
-mongoose.connect('mongodb://localhost:27017/todoDB')
+mongoose.connect('mongodb://localhost:27017/todosDB')
 
 
 const holders = {};
@@ -30,51 +30,83 @@ const singleTodoSchema = new mongoose.Schema({
 
 
 const saveTodos = (items, singleItem) => {
-   
-
-    let id = holders.hasOwnProperty(items)?holders[items].length + 1: 1;
     const Todo = mongoose.model(items, singleTodoSchema);
-    const todo = new Todo({
-        _id: id,
-        content: singleItem
-    })
-
-    //todo.save()
-
     Todo.find({}, function(err, result){
         if(err){
             console.log(err)
         }else {
-            console.log(result)
+            let id = ""
+            if(!result.length > 0){
+                id = 1
+            }else {
+                id = result.length + 1
+            }
+            const todo = new Todo({
+                _id: id,
+                content: singleItem
+            })
+        
+            todo.save()
         }
     })
+    // if(!holders.hasOwnProperty(items)){
+    //     id = 1;
+    //     holders[items] = []
+    // }else {
+    //     id = holders[items].length + 1
+    // }
+    
+    // const todo = new Todo({
+    //     _id: id,
+    //     content: singleItem
+    // })
 
-    
-    
+    // todo.save()
+    // if(!holders[items].length > 0){
+    //     holders[items] = [todo]
+    // }
+
+
+    // const Todo = mongoose.model("homeitems", singleTodoSchema)
+    // if(holders.hasOwnProperty("homeitems")){
+    //     Todo.find({}, function(err, result){
+    //         if(err){
+    //             console.log(err)
+    //         }else {
+    //             console.log("result 1", result)
+    //             holders["homeitems"] = result
+    //             res.render('List', {date: currentDate, todos: holders["homeitems"], title: 'home' })
+    //         }
+    //     })
+        
+        
+    // } else {
+    //     res.render('List', {date: currentDate, todos: [], title: 'home' })
+    // }
 
 }
 
 
 
-app.get('/', function(req, res){
-    let items = []
-    const Todo = mongoose.model("homeitems", singleTodoSchema)
-    Todo.find({}, function(err, result){
-            if(err){
-                console.log(err)
-            }else {
-                if(result.length > 0){
-                    console.log("result 1", result)
-                    holders["homeitems"] = result
-                }
-            }
+function getTodos(items, res){
+    const Todo = mongoose.model(items, singleTodoSchema)
+    Todo.find({}, function(err, todos){
+        if(err){
+            console.log(err)
+        }else {
+            res.render('List', {date: currentDate, todos: todos, title: 'home' })
+        }
     })
-    console.log("outside 2")
-    if(holders.hasOwnProperty("homeitems")){
-        items = holders["homeitems"]
-        console.log(items)
-    }
-    res.render('List', {date: currentDate, todos: [], title: 'home' })
+}
+
+
+
+// the routee definition
+
+app.get('/', function(req, res){
+    
+    getTodos("homeitems", res)
+    
 })
 
 app.post('/', (req, res) => {
@@ -83,31 +115,11 @@ app.post('/', (req, res) => {
 
     //here goes the code
 
-
-
-
-    let id = holders.hasOwnProperty("homeitems")?holders["homeitems"].length + 1: 1;
-    const Todo = mongoose.model("homeitems", singleTodoSchema);
-    const todo = new Todo({
-        _id: id,
-        content: todoData
-    })
-
-    todo.save()
-
-
-
+   
+    saveTodos("homeitems", todoData)
 
 
     // end it here
-
-
-
-
-
-
-
-
 
 
     res.redirect('/')
