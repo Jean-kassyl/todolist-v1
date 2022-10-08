@@ -33,19 +33,28 @@
                 <% } %>
             </ul>
     
-            <form  action= <%= title === 'home'? '/': '/categories/?category=' + title %> method="post">
+            <form  action= <%= title === 'home'?'/': route? '/categories/?category=' + route:'/' %> method="post">
                 <input type="text" name="newTodo" placeholder="add a new todo" autocomplete="off"> 
                 <button class="btn">&#43;</button>
             </form>
         </div>
-    
+            <% console.log("from the list ejs", cat) %>
     </div>
     <div class="aside">
         <h3>My specific list of todos</h3>
         <ul class="categories">
-            <li><span class="cat-text">make food to my children</span><span class="del">&#10005;</span></li>
-            <li>go to the gym</li>
-            <li>run a 100 miles</li>
+            <%  if(cat.length > 0) { %>
+                <% cat.forEach(category => {  %> 
+                  <a href= <%= "/categories/?category=" + category.name.split(' ').join('+')  %> > 
+                    <li>
+                        <span class="cat-text"><%= category.name %></span>
+                        <span class="del">&#10005;</span>
+                    </li> 
+                </a>
+                <% }) %>  
+            <% } else { %>
+                <li>No specific todos for the moment</li>
+            <% } %>
         </ul>
     </div>
 

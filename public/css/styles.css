@@ -20,6 +20,7 @@ body {
 }
 
 
+
 .view {
     position: relative;
     left: 30%;
@@ -125,12 +126,19 @@ form input:focus {
     gap: 7px;
     flex-wrap: wrap;
     padding: 5px;
+    
 }
 .categories li{
-    display: inline-flex;
+    display: flex;
     justify-content: space-between;
     cursor: pointer;
 
+}
+
+.categories a {
+    text-decoration: none;
+    color: black;
+    display:inline-block;
 }
 
 .del {

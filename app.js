@@ -30,6 +30,7 @@ const singleTodoSchema = new mongoose.Schema({
 
 const categorySchema = new mongoose.Schema({
     category: String,
+    name: String,
     date: String
 })
 
@@ -61,24 +62,45 @@ const saveTodos = (items, singleItem) => {
 
 
 
-function getTodos(items, res, title){
+function getTodos(items, res, title, ctgry, route){
     const Todo = mongoose.model(items, singleTodoSchema)
     Todo.find({}, function(err, todos){
         if(err){
             console.log(err)
         }else {
-            res.render('List', {date: currentDate, todos: todos, title: title })
+            res.render('List', {date: currentDate, todos: todos, title: title, cat: ctgry,  route:route })
+            
         }
     })
 }
 
 
+function collectionFormater(cat){
+    let newList = cat.toLowerCase().split(' ').join('_')
+    newList = newList.endsWith('s')? newList: newList + 's';
+    return newList;
+}
+
+function findCat(){
+    
+}
+
 
 // the route definition
 
 app.get('/', function(req, res){
+
+    Categories.find({}, function(err, categories){
+        if(err){
+            console.log(err)
+        }else {
+            //we need to check the categories when we get to the home route 
+            console.log('home route categories: ', categories)
+            getTodos("homeitems", res, 'home', categories)
+        }
+    })
     
-    getTodos("homeitems", res)
+   
     
 })
 
@@ -89,7 +111,7 @@ app.post('/', (req, res) => {
     //here goes the code
 
    
-    saveTodos("homeitems", todoData, 'home')
+    saveTodos("homeitems", todoData)
 
 
     // end it here
@@ -98,35 +120,76 @@ app.post('/', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/categories', function(req, res){
-    let route = req.query.category
-    let newList = route.toLowerCase().split(' ').join('_')
-    newList = newList.endsWith('s')? newList: newList + 's';
 
+// get the categories page
+app.get('/categories', function(req, res){
+    let data = req.query.category
+    const cat = collectionFormater(data)
+    
+    
     const newCategory = new Categories({
-        category: newList,
+        category: cat,
+        name: data,
         date: currentDate
     })
+
+    //start of categories finding
     Categories.find({}, function(err, categories){
         if(err){
             console.log(err)
         }else {
-            let check = categories.find(category => category.name === newList)
+            let check = categories.find(categ => categ.category === cat)
             if(!check){
-                newCategory.save()
+
+                newCategory.save(function(error, doc){
+                    if(error){
+                        console.log()
+                    }
+                    else {
+                        //******************************************** */
+                        // here we are taking profit of saving our category in order to get all the categories
+                        Categories.find({}, function(error, categories){
+                            if(error){
+                                console.log(error)
+                            } else {
+                                console.log("categories of the saving route",categories)
+                                let route = data.split(' ').join('+')
+                                getTodos(cat, res, data,categories, route)
+                            }
+                        })
+                        
+
+                        //******************************************** */
             }
-        }
-    })
-   
-    getTodos(newList, res, route)
+
+        })
+
+            
+    }
+    
+        let route = data.split(' ').join('+')
+        getTodos(cat, res, data, categories, route)
+    }
+    
+    
+    
+})
+// end of category finding
 })
 
+//post to the categories route 
 app.post('/categories', function(req, res){
     let route = req.query.category
     let todo = req.body.newTodo
+    const category = collectionFormater(route)
+
+
+    
+
+    saveTodos(category, todo)
     console.log("route", route)
     console.log('todo', todo)
-    res.redirect('/')
+    res.redirect('/categories?category=' + route.split(' ').join('+'))
 })
 
 const PORT = process.env.PORT || '3001'
