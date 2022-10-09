@@ -220,10 +220,27 @@ app.get('/categories/delete', function(req, res){
     
 })
 
-app.get('/category/delete/:name', function(req, res){
-    let cat = req.params.name
-    console.log(cat)
-    res.send("oyo mi na")
+app.get('/category/delete', function(req, res){
+    let data = req.query.name
+    let category = collectionFormater(data)
+    
+
+    Categories.deleteOne({category: category}, function(err, re){
+        if(err){
+            console.log(err)
+        } else {
+            console.log("not working", category)
+        }
+    })
+    mongoose.connection.db.dropCollection(category, function(err, result){
+        if(err){
+            console.log(err)
+        } else {
+            console.log("success")
+        }
+    })
+    console.log("outside categ", category)
+    res.redirect('/')
 })
 
 

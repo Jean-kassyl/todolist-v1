@@ -53,7 +53,7 @@
                         <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
                             <span class="cat-text"><%= category.name %></span>
                         </a>
-                        <a class="delete-link" href=<%= '/category/delete/'+ category.name.split(' ').join('+')  %>  >
+                        <a class="delete-link" href=<%= '/category/delete/?name='+ category.name.split(' ').join('+') %>  >
                             <span class="del">&#10005;</span>
                         </a>
                     </li> 
