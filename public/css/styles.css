@@ -129,22 +129,36 @@ form input:focus {
     
 }
 .categories li{
-    display: flex;
-    justify-content: space-between;
+    margin: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
 }
 
 .categories a {
     text-decoration: none;
     color: black;
-    display:inline-block;
+    display: inline-block;
+    
+
 }
 
+.delete-link {
+    position: relative;
+    bottom: 1px;
+}
+
+
+
 .del {
-    background-color: cornflowerblue;
-    padding: 8px;
+    background-color:cornflowerblue;
+    padding: 7px;
     color: lavender;
+}
+
+.del:hover {
+    color: red;
 }
 
 .cat-text {
@@ -172,6 +186,13 @@ form.cat-form {
     cursor: pointer;
 }
 
+.item > a {
+    text-decoration: none;
+    position: absolute;
+    right: 5px;
+    top: 13p;
+    visibility: hidden;
+}
 .trash {
     display: -moz-inline-grid;
     display: -ms-inline-grid;
@@ -182,10 +203,6 @@ form.cat-form {
     border-radius: 50%;
     background-color: red;
     color: lavender;
-    position: absolute;
-    right: 5px;
-    top: 13p;
-    visibility: hidden;
 }
 
 .item:hover .trash {

@@ -120,12 +120,28 @@ app.post('/', (req, res) => {
     res.redirect('/')
 })
 
+app.get('/delete:id', function(req, res){
+    let id = Number(req.params.id);
+    const Todo = mongoose.model('homeitems', singleTodoSchema)
+    Todo.deleteOne({_id: id}, function(er, result){
+        if(er){
+            console.log(er)
+        }else {
+            res.redirect('/')
+        }
+    })
+})
+
+
+
+
+// +++++++++++++++++++++++++++++++++++++++end of the home route logic ++++++++++++++++++++++++++++
 
 // get the categories page
 app.get('/categories', function(req, res){
     let data = req.query.category
     const cat = collectionFormater(data)
-    
+
     
     const newCategory = new Categories({
         category: cat,
@@ -188,6 +204,29 @@ app.post('/categories', function(req, res){
     console.log('todo', todo)
     res.redirect('/categories?category=' + route.split(' ').join('+'))
 })
+
+app.get('/categories/delete', function(req, res){
+    let id = Number(req.query.id);
+    let data = req.query.category
+    let cat = collectionFormater(data)
+    const Todo = mongoose.model(cat, singleTodoSchema)
+    Todo.deleteOne({_id: id}, function(er, result){
+        if(er){
+            console.log(er)
+        }else {
+            res.redirect('/categories?category=' + data.split(' ').join('+'))
+        }
+    })
+    
+})
+
+app.get('/category/delete/:name', function(req, res){
+    let cat = req.params.name
+    console.log(cat)
+    res.send("oyo mi na")
+})
+
+
 
 const PORT = process.env.PORT || '3001'
 

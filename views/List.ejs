@@ -25,7 +25,10 @@
                         <li class="item">
                             <input type="radio">
                             <span><%= todo.content %></span>
-                            <span class="trash">&#128465;</span>
+                            <a href=<%= title === 'home'?'/' + 'delete' +todo._id: route? '/categories/delete/?category=' + route + '&id=' + todo._id:'/' %>>
+                                <span class="trash">&#128465;</span>
+                            </a>
+                            
                         </li>
                     <% }) %>  
                 <% } else { %>
@@ -45,12 +48,16 @@
         <ul class="categories">
             <%  if(cat.length > 0) { %>
                 <% cat.forEach(category => {  %> 
-                  <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
+                  
                     <li>
-                        <span class="cat-text"><%= category.name %></span>
-                        <span class="del">&#10005;</span>
+                        <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
+                            <span class="cat-text"><%= category.name %></span>
+                        </a>
+                        <a class="delete-link" href=<%= '/category/delete/'+ category.name.split(' ').join('+')  %>  >
+                            <span class="del">&#10005;</span>
+                        </a>
                     </li> 
-                </a>
+               
                 <% }) %>  
             <% } else { %>
                 <li>No specific todos for the moment</li>
