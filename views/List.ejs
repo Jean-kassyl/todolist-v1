@@ -34,7 +34,7 @@
             </ul>
     
             <form  action= <%= title === 'home'?'/': route? '/categories/?category=' + route:'/' %> method="post">
-                <input type="text" name="newTodo" placeholder="add a new todo" autocomplete="off"> 
+                <input type="text" name="newTodo" placeholder="add a new todo" autocomplete="off" required> 
                 <button class="btn">&#43;</button>
             </form>
         </div>
@@ -45,7 +45,7 @@
         <ul class="categories">
             <%  if(cat.length > 0) { %>
                 <% cat.forEach(category => {  %> 
-                  <a href= <%= "/categories/?category=" + category.name.split(' ').join('+')  %> > 
+                  <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
                     <li>
                         <span class="cat-text"><%= category.name %></span>
                         <span class="del">&#10005;</span>

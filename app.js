@@ -141,38 +141,38 @@ app.get('/categories', function(req, res){
             let check = categories.find(categ => categ.category === cat)
             if(!check){
 
-                newCategory.save(function(error, doc){
+                newCategory.save(function(error, doc){  //start save block 
                     if(error){
                         console.log()
                     }
                     else {
                         //******************************************** */
                         // here we are taking profit of saving our category in order to get all the categories
-                        Categories.find({}, function(error, categories){
+                        Categories.find({}, function(er, categories){
                             if(error){
-                                console.log(error)
+                                console.log(er)
                             } else {
-                                console.log("categories of the saving route",categories)
                                 let route = data.split(' ').join('+')
-                                getTodos(cat, res, data,categories, route)
+                                getTodos(cat, res, data, categories, route)
+                                
+                                
                             }
                         })
-                        
-
                         //******************************************** */
             }
-
-        })
-
             
-    }
+        }) // end of save block
+
     
+    } else{ // start of the else after checking the existence of the category
         let route = data.split(' ').join('+')
         getTodos(cat, res, data, categories, route)
+      
+
+
+    } // end of the block
+           
     }
-    
-    
-    
 })
 // end of category finding
 })
@@ -182,9 +182,6 @@ app.post('/categories', function(req, res){
     let route = req.query.category
     let todo = req.body.newTodo
     const category = collectionFormater(route)
-
-
-    
 
     saveTodos(category, todo)
     console.log("route", route)
