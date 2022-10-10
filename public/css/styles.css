@@ -27,6 +27,7 @@ ul {
 
 body {
     background-color: var(--body-color);   
+    font-family:'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
 }
 
 body.crimson {
@@ -79,7 +80,10 @@ nav {
     justify-content: space-between;
     z-index:0;
 }
-
+nav h3 {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--primary-color);
+}
 .todo-bloc {
     max-width: 800px;
     min-width: 500px;
@@ -122,6 +126,7 @@ h1 {
     border-top-right-radius: 3px;
     margin: 0;
     color: var(--body-color);
+    font-size: 1.8rem;
 
 }
 
@@ -282,4 +287,102 @@ form.cat-form {
 
 .item:hover .trash {
     visibility: visible;
+}
+
+.go-home-block {
+    position: fixed;
+    bottom: 50px;
+    right: 25px;
+}
+
+
+.homeBtn {
+    padding: 10px 12px;
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: var(--body-color);
+    text-decoration: none;
+}
+.mobile-home-btn {
+    display: none;
+}
+footer.mobile {
+    display: none;
+}
+
+
+@media (max-width: 545px){
+    .aside {
+        display: none;
+    }
+
+    nav {
+        width: 100%;
+        padding-left: 30px;
+        flex-direction: row-reverse;
+    }
+
+    .view {
+        position: relative;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        min-height: inherit;
+        place-items: center;
+        padding-top: 200px;
+        gap: 30px;
+    }
+
+    .todo-bloc {
+        max-width: 500px;
+        min-width: 300px;
+        
+    }
+
+    form.cat-form {
+        max-width: 90%;
+        min-width: 340px;
+        width: 90%;
+    }
+
+    .color-btn {
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        margin: 0 5px;
+    
+    }
+
+    .go-home-block {
+        position: fixed;
+        bottom: 40px;
+        right: 6px;
+    }
+    
+    
+    .homeBtn {
+        display: none;
+    }
+    .mobile-home-btn {
+        display: block;
+        font-size: 20px;
+        padding: 0 4px;
+        color: var(--body-color);
+        background-color: var(--primary-color);
+        
+    }
+
+
+    footer.mobile {
+        display: block;
+        text-align: center;
+        background-color: var(--primary-color);
+        padding: 4px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
 }

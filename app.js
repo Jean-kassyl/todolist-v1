@@ -62,13 +62,13 @@ const saveTodos = (items, singleItem) => {
 
 
 
-function getTodos(items, res, title, ctgry, route){
+function getTodos(items, res, title, ctgry, showItem, route){
     const Todo = mongoose.model(items, singleTodoSchema)
     Todo.find({}, function(err, todos){
         if(err){
             console.log(err)
         }else {
-            res.render('List', {date: currentDate, todos: todos, title: title, cat: ctgry,  route:route })
+            res.render('List', {date: currentDate, todos: todos, title: title, cat: ctgry, show: showItem, route:route })
             
         }
     })
@@ -81,9 +81,6 @@ function collectionFormater(cat){
     return newList;
 }
 
-function findCat(){
-    
-}
 
 
 // the route definition
@@ -95,8 +92,7 @@ app.get('/', function(req, res){
             console.log(err)
         }else {
             //we need to check the categories when we get to the home route 
-            console.log('home route categories: ', categories)
-            getTodos("homeitems", res, 'home', categories)
+            getTodos("homeitems", res, 'home', categories, false)
         }
     })
     
@@ -169,7 +165,7 @@ app.get('/categories', function(req, res){
                                 console.log(er)
                             } else {
                                 let route = data.split(' ').join('+')
-                                getTodos(cat, res, data, categories, route)
+                                getTodos(cat, res, data, categories, true, route)
                                 
                                 
                             }
@@ -182,7 +178,7 @@ app.get('/categories', function(req, res){
     
     } else{ // start of the else after checking the existence of the category
         let route = data.split(' ').join('+')
-        getTodos(cat, res, data, categories, route)
+        getTodos(cat, res, data, categories,true, route)
       
 
 
