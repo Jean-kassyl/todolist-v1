@@ -1,3 +1,12 @@
+:root {
+    --primary-color: cornflowerblue;
+    --secondary-color: lightsteelblue;
+    --body-color: lavender;
+    --nav-color: hsla(219, 79%, 66%, .1);
+}
+
+
+
 *, *::before, *::after {
     padding: 0;
     margin: O;
@@ -16,7 +25,7 @@ ul {
 }
 
 body {
-    background-color:lavender;   
+    background-color: var(--body-color);   
 }
 
 
@@ -29,8 +38,24 @@ body {
     flex-direction: column;
     min-height: 100vh;
     place-items: center;
-    padding-top: 80px;
+    padding-top: 180px;
     gap: 30px;
+}
+
+nav {
+    width: 80%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding-right: 30px;
+    padding-left: 100px;
+    position: fixed;
+    background-color: hsla(219, 79%, 66%, .1);
+    box-shadow: 0px 1px 1px 1px hsla(21, 9%, 7%, .1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index:0;
 }
 
 .todo-bloc {
@@ -39,14 +64,42 @@ body {
     
 }
 
-h1 {
+/* colors styling */
+
+
+.color-btn {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin: 0 3px;
+    cursor: pointer;
+
+}
+
+.color-btn:first-child {
     background-color: cornflowerblue;
+    color: light
+
+}
+.color-btn:nth-child(2) {
+    background-color: crimson;
+    
+}
+
+.color-btn:last-child {
+    background-color: black;
+    
+}
+
+h1 {
+    background-color: var(--primary-color);
     padding: 8px 15px;
     text-align: center;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     margin: 0;
-    color: lightcyan;
+    color: var(--body-color);
 
 }
 
@@ -57,7 +110,7 @@ ul {
 
 .item {
     padding: 15px 5px;
-    background-color: lightsteelblue;
+    background-color: var(--secondary-color);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -65,7 +118,7 @@ ul {
 }
 
 .item:not(.item:first-child) {
-    border-top: 1px solid cornflowerblue;
+    border-top: 1px solid var(--primary-color);
 }
 
 form input {
@@ -85,7 +138,7 @@ form {
 }
 
 form input:focus {
-    border-bottom: 2px solid cornflowerblue;
+    border-bottom: 2px solid var(--primary-color);
 
 }
 
@@ -97,9 +150,9 @@ form input:focus {
     height: 25px;
     border-radius: 50%;
     border: none;
-    background-color:cornflowerblue;
+    background-color:var(--primary-color);
     cursor: pointer;
-    color: lightcyan;
+    color: var(--body-color);
     font-size: 1.1rem;
     font-weight: bold;
 }
@@ -111,8 +164,8 @@ form input:focus {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: lightsteelblue;
-    border-right: 10px solid cornflowerblue;
+    background-color: var(--secondary-color);
+    border-right: 10px solid var(--primary-color);
     text-align: center;
 }
 
@@ -152,9 +205,9 @@ form input:focus {
 
 
 .del {
-    background-color:cornflowerblue;
+    background-color:var(--primary-color);
     padding: 7px;
-    color: lavender;
+    color: var(--body-color);
 }
 
 .del:hover {
@@ -163,7 +216,7 @@ form input:focus {
 
 .cat-text {
     padding: 6px;
-    border: 1px solid cornflowerblue;
+    border: 1px solid var(--primary-color);
 
 }
 
@@ -180,8 +233,8 @@ form.cat-form {
     padding: 13px 8px;
     outline: none;
     border: none;
-    background-color: cornflowerblue;
-    color: lavender;
+    background-color: var(--primary-color);
+    color: var(--body-color);;
     font-size: 1.1rem;
     cursor: pointer;
 }
@@ -202,7 +255,7 @@ form.cat-form {
     height: 24px;
     border-radius: 50%;
     background-color: red;
-    color: lavender;
+    color: var(--body-color);
 }
 
 .item:hover .trash {
