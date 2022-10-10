@@ -113,9 +113,13 @@ nav h3 {
     
 }
 
-.color-btn:last-child {
+.color-btn:nth-child(3) {
     background-color: black;
     
+}
+
+.mobile-menu {
+    display: none;
 }
 
 h1 {
@@ -316,10 +320,27 @@ footer.mobile {
     .aside {
         display: none;
     }
+    .aside.mobile {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 0;
+        top: 60px;
+        background-color: var(--body-color);
+        border-bottom: 3px solid var(--primary-color);
+        border-right: none;
+        text-align: center;
+        padding: 10px 5px;
+    }
+
+    .aside.mobile h3 {
+        font-size: 1.2rem;
+    }
 
     nav {
         width: 100%;
-        padding-left: 30px;
+        padding-left: 20px;
         flex-direction: row-reverse;
     }
 
@@ -347,9 +368,13 @@ footer.mobile {
         width: 90%;
     }
 
+    .colors {
+        display: flex;
+        align-items: center;
+    }
     .color-btn {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         border-radius: 5px;
         margin: 0 5px;
     
@@ -379,10 +404,17 @@ footer.mobile {
         display: block;
         text-align: center;
         background-color: var(--primary-color);
-        padding: 4px;
+        padding: 5px;
         width: 100%;
         position: fixed;
         bottom: 0;
         left: 0;
+        color: var(--body-color);
+    }
+
+    .mobile-menu {
+        display: block;
+        margin-left: 12px;
+        font-size: 24px;  
     }
 }
