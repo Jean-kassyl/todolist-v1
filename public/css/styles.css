@@ -3,6 +3,7 @@
     --secondary-color: lightsteelblue;
     --body-color: lavender;
     --nav-color: hsla(219, 79%, 66%, .1);
+    --input-color: hsla(214, 41%, 78%, .8)
 }
 
 
@@ -28,6 +29,27 @@ body {
     background-color: var(--body-color);   
 }
 
+body.crimson {
+    --primary-color: hsl(348, 83%, 47%);
+    --secondary-color: hsla(348, 83%, 47%, .3);
+    --body-color: lightpink;
+    --nav-color: hsla(348, 83%, 47%, .1);
+    --input-color: hsla(348, 83%, 47%, .2);
+}
+
+body.black {
+    --primary-color: black;
+    --secondary-color: rgb(27, 26, 26);
+    --body-color: rgb(77, 71, 71);
+    --input-color: rgba(90, 82, 82, 0.6);
+    --nav-color: rgba(41, 41, 41, .3);
+    color: rgb(212, 205, 205);
+   
+}
+
+body.black a {
+    color: rgb(212, 205, 205);
+}
 
 
 .view {
@@ -43,14 +65,14 @@ body {
 }
 
 nav {
-    width: 80%;
+    width: 75%;
     top: 0;
     right: 0;
     text-align: right;
     padding-right: 30px;
     padding-left: 100px;
     position: fixed;
-    background-color: hsla(219, 79%, 66%, .1);
+    background-color: var(--nav-color);
     box-shadow: 0px 1px 1px 1px hsla(21, 9%, 7%, .1);
     display: flex;
     align-items: center;
@@ -225,7 +247,7 @@ form.cat-form {
     min-width: 500px;
     display: flex;
     justify-content: space-between;
-    background-color: hsla(214, 41%, 78%, .8)
+    background-color: var(--input-color);
     
 }
 

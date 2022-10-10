@@ -1,5 +1,6 @@
 const items = document.querySelectorAll('.item')
 const radios = document.querySelectorAll('.item input')
+const colorsChanger = document.querySelectorAll('.colors span');
 
 radios.forEach(radio => {
     radio.checked = false;
@@ -21,5 +22,21 @@ items.forEach(item => {
        // 
         //item.style.textDecoration = "line-through"
         console.log(input)
+    }
+})
+
+colorsChanger.forEach(changer => {
+    changer.onclick = function(e){
+        let color = e.target.dataset.color;
+        console.log(color);
+        if(color === 'cornflowerblue'){
+            document.body.classList.remove('crimson')
+            document.body.classList.remove('black')
+        }
+        else {
+            document.body.classList.remove('crimson')
+            document.body.classList.remove('black')
+            document.body.classList.toggle(color)
+        }
     }
 })
