@@ -36,7 +36,8 @@ const categorySchema = new mongoose.Schema({
 
 const Categories = mongoose.model("categorie",categorySchema )
 
-const saveTodos = (items, singleItem) => {
+
+const saveTodos = (items, singleItem, res, path) => {
     const Todo = mongoose.model(items, singleTodoSchema);
     Todo.find({}, function(err, result){
         if(err){
@@ -46,14 +47,21 @@ const saveTodos = (items, singleItem) => {
             if(!result.length > 0){
                 id = 1
             }else {
-                id = result.length + 1
+                const ids = result.map(todo => todo._id )
+                id = Math.max(...ids) + 1
             }
             const todo = new Todo({
                 _id: id,
                 content: singleItem
             })
         
-            todo.save()
+            todo.save(function(err, result){ //start of the callback on the save 
+                if(err){
+                    console.log(err)
+                }else {
+                    res.redirect(path)
+                }
+            }) // end of the callback
         }
     })
     
@@ -93,6 +101,7 @@ app.get('/', function(req, res){
         }else {
             //we need to check the categories when we get to the home route 
             getTodos("homeitems", res, 'home', categories, false)
+            //end of logic
         }
     })
     
@@ -104,16 +113,13 @@ app.post('/', (req, res) => {
     const todoData = req.body.newTodo;
     
 
-    //here goes the code
+    //here goes the code for saving todos
 
-   
-    saveTodos("homeitems", todoData)
-
-
+   saveTodos("homeitems", todoData, res, '/')
     // end it here
 
-
-    res.redirect('/')
+    
+    
 })
 
 app.get('/delete:id', function(req, res){
@@ -194,11 +200,10 @@ app.post('/categories', function(req, res){
     let route = req.query.category
     let todo = req.body.newTodo
     const category = collectionFormater(route)
+    const path = '/categories?category=' + route.split(' ').join('+');
 
-    saveTodos(category, todo)
-    console.log("route", route)
-    console.log('todo', todo)
-    res.redirect('/categories?category=' + route.split(' ').join('+'))
+    saveTodos(category, todo, res, path)
+    
 })
 
 app.get('/categories/delete', function(req, res){

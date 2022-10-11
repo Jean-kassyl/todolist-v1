@@ -30,11 +30,11 @@
        
         <div class="todo-bloc">
             <h1> <%= title === 'home'? date: title %></h1>
-    
+            
             <ul>
                 <% if(todos.length > 0){  %>
                     <% todos.forEach( todo => {  %> 
-                        <li class="item">
+                        <li class="item" data-title = <%= title.split(' ').join('_') %> data-content=<%= todo.content.split(' ').join('_') + title.split(' ').join('_') %> >
                             <input type="radio">
                             <span><%= todo.content %></span>
                             <a href=<%= title === 'home'?'/' + 'delete' +todo._id: route? '/categories/delete/?category=' + route + '&id=' + todo._id:'/' %>>
@@ -72,7 +72,7 @@
                         <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
                             <span class="cat-text"><%= category.name %></span>
                         </a>
-                        <a class="delete-link" href=<%= '/category/delete/?name='+ category.name.split(' ').join('+') %>  >
+                        <a class="delete-link" data-category = <%= category.name.split(' ').join('_') %> href=<%= '/category/delete/?name='+ category.name.split(' ').join('+') %>  >
                             <span class="del">&#10005;</span>
                         </a>
                     </li> 

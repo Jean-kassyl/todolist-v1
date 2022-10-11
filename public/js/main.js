@@ -5,26 +5,32 @@ const mobileMenu = document.querySelector('.colors .mobile-menu');
 const aside = document.querySelector('.aside');
 
 const categoryForm = document.querySelector('.cat-form');
+const deleteCategory = document.querySelectorAll('.delete-link')
+
+const deleteItem = document.querySelectorAll('.item a')
 
 
-let check = localStorage.getItem('checker') || [];
+
 
 
 if(items.length > 1){
     // start of the logic to check a todo using line through
-
+    
     items.forEach(item => {
-        const link = item.querySelector('a').href;
+        let check = JSON.parse(localStorage.getItem(item.dataset.title)) || [] ;
+        const content = item.dataset.content;
         if(check.length > 0){
     
-            check.split(',').forEach(url => {
-                if(link === url){
-                  let rad =  item.querySelector("input");
-                  rad.checked = true;
+            check.forEach(item_data => {
+                if(item_data === content){
+                  
+                  item.checked = true;
         
-                  if(rad.checked){
+                  if(item.checked){
+                    item.querySelector('input').checked = true
                     item.style.textDecoration = "line-through";
                   }else {
+                    item.querySelector('input').checked = false
                     item.style.textDecoration = "none";
                   }
                 }
@@ -40,38 +46,45 @@ if(items.length > 1){
 }
 
 
-let urls = [] // created to deal with local storage
+let list_items = [];
+
+// created to deal with local storage
 items.forEach(item => {
+    if(localStorage.getItem(item.dataset.title)){
+        list_items = JSON.parse(localStorage.getItem(item.dataset.title))
+    }
     item.onclick = function(e){
         let input = item.querySelector('input')
         
+        // start of the set logic
         if(!input.checked){
             input.checked = true;
             item.style.textDecoration = "line-through";
-            const url = e.currentTarget.children[2].href
+            const list_item = e.currentTarget.dataset.content
+            console.log(list_item);
             
-            urls.includes(url) || urls.push(url);
-            console.log(urls);
+            const title = e.currentTarget.dataset.title
+
+            list_items.includes(list_item) || list_items.push(list_item);
+            console.log(list_items, 'title', title)
             
-            localStorage.setItem('checker', urls)
+            localStorage.setItem(title, JSON.stringify(list_items))
         }
         else {
             input.checked = false;
             item.style.textDecoration = "none";
-            const url = e.currentTarget.children[2].href
-            if(urls.includes(url)){
-                let ind = urls.indexOf(url)
-                urls.splice(ind, 1)
+            const list_item = e.currentTarget.dataset.content
+            const title = e.currentTarget.dataset.title
+            if(list_items.includes(list_item)){
+                let ind = list_items.indexOf(list_item)
+                list_items.splice(ind, 1)
             }
-            console.log(urls)
-            localStorage.setItem('checker', urls)
+            console.log(list_items, 'title', title)
+            localStorage.setItem(title, JSON.stringify(list_items))
         }
-       
-        
-       // 
-        //item.style.textDecoration = "line-through"
-        console.log(input)
+       // end of the checked logic 
     }
+    
 })
 
 colorsChanger.forEach(changer => {
@@ -107,3 +120,29 @@ categoryForm.onsubmit =  function(e){
         console.log(input.value)
         e.currentTarget.submit()
 }
+
+// get rid of deleted data in the localstorage
+
+deleteCategory.forEach(cat => {
+    cat.onclick = function(e){
+        const title = e.currentTarget.dataset.category
+        console.log(title)
+        localStorage.removeItem(title)
+    }
+})
+
+// dealing with the local storage when we delete an item
+
+deleteItem.forEach(del_link => {
+    del_link.onclick = function(e){
+        const title = e.currentTarget.parent.dataset.title
+        const content = e.currentTarget.parent.content
+        if(localStorage.getItem(title)){
+            list_items = JSON.parse(localStorage.getItem(title))
+        }
+        let ind = list_items.indexOf()
+        list_items.splice(ind, 1)
+        console.log("deeleting the item", content)
+        localStorage.setItem(title, JSON.stringify(list_items))
+    }
+})
