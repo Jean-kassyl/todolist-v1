@@ -20,14 +20,14 @@
             </div>
             <h3>Todo app</h3>
          </nav>
-         <% if(!show){ %>
+         
             <div> 
-                <form action="/categories" method="GET" class="cat-form">
+                <form action="/categories" method="GET" class="cat-form" <% if(show) { %> style="visibility: hidden;" <% }%>>
                     <input type="text" name="category" placeholder="create a specific category">
                     <button class="cat-btn">ok</button>
                 </form>
             </div>
-        <% } %>
+       
         <div class="todo-bloc">
             <h1> <%= title === 'home'? date: title %></h1>
     

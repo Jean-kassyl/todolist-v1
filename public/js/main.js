@@ -4,33 +4,43 @@ const colorsChanger = document.querySelectorAll('.colors .color-btn');
 const mobileMenu = document.querySelector('.colors .mobile-menu');
 const aside = document.querySelector('.aside');
 
+const categoryForm = document.querySelector('.cat-form');
+
 
 let check = localStorage.getItem('checker') || [];
 
 
+if(items.length > 1){
+    // start of the logic to check a todo using line through
 
-items.forEach(item => {
-    const link = item.querySelector('a').href;
-    if(check.length > 0){
-
-        check.split(',').forEach(url => {
-            if(link === url){
-              let rad =  item.querySelector("input");
-              rad.checked = true;
+    items.forEach(item => {
+        const link = item.querySelector('a').href;
+        if(check.length > 0){
     
-              if(rad.checked){
-                item.style.textDecoration = "line-through";
-              }else {
-                item.style.textDecoration = "none";
-              }
-            }
-        })
+            check.split(',').forEach(url => {
+                if(link === url){
+                  let rad =  item.querySelector("input");
+                  rad.checked = true;
+        
+                  if(rad.checked){
+                    item.style.textDecoration = "line-through";
+                  }else {
+                    item.style.textDecoration = "none";
+                  }
+                }
+            })
+    
+        }
+      
+    })
 
-    }
-  
-})
 
-let urls = []
+
+    // end of the logic
+}
+
+
+let urls = [] // created to deal with local storage
 items.forEach(item => {
     item.onclick = function(e){
         let input = item.querySelector('input')
@@ -84,3 +94,16 @@ colorsChanger.forEach(changer => {
 mobileMenu.addEventListener('click', function(){
     aside.classList.toggle('mobile');
 })
+
+
+// trim category data form
+
+categoryForm.onsubmit =  function(e){
+        e.preventDefault()
+        const input  = categoryForm.querySelector('input');
+        let str = input.value.trim()
+        input.value = str
+
+        console.log(input.value)
+        e.currentTarget.submit()
+}
