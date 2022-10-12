@@ -240,22 +240,24 @@ app.get('/category/delete', function(req, res){
         if(err){
             console.log(err)
         } else {
-            console.log("working fine")
+            //console.log("working fine")
+            mongoose.connection.db.dropCollection(category, function(err, result){
+                if(err){
+                    console.log(err)
+                } else {
+                    //console.log("success")
+                    if(deleteRoute === req.headers.referer){
+                        res.redirect('/')
+                       }else {
+                        res.redirect(req.headers.referer)
+                       }
+                }
+            })
         }
     })
-    mongoose.connection.db.dropCollection(category, function(err, result){
-        if(err){
-            console.log(err)
-        } else {
-            console.log("success")
-        }
-    })
+   
     
-   if(deleteRoute === req.headers.referer){
-    res.redirect('/')
-   }else {
-    res.redirect(req.headers.referer)
-   }
+  
 })
 
 
