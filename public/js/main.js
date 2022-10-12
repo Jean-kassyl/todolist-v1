@@ -1,5 +1,5 @@
 const items = document.querySelectorAll('.item')
-const radios = document.querySelectorAll('.item input')
+const checkboxes = document.querySelectorAll('.item input')
 const colorsChanger = document.querySelectorAll('.colors .color-btn');
 const mobileMenu = document.querySelector('.colors .mobile-menu');
 const aside = document.querySelector('.aside');
@@ -10,28 +10,40 @@ const deleteCategory = document.querySelectorAll('.delete-link')
 const deleteItem = document.querySelectorAll('.item a')
 
 
+let theme = localStorage.getItem('theme')
 
+if(theme){
+    if(theme === "cornflowerblue" ){
+        document.body.classList.remove = 'crimson';
+        document.body.classList.remove = 'black';
+    }else {
+        document.body.classList.remove = 'crimson';
+        document.body.classList.remove = 'black';
+        document.body.classList.add(theme)
+    }
+}
 
-
-if(items.length > 1){
+if(!items[0].classList.contains("not_todo")){
     // start of the logic to check a todo using line through
     
-    items.forEach(item => {
-        let check = JSON.parse(localStorage.getItem(item.dataset.title)) || [] ;
-        const content = item.dataset.content;
+    checkboxes.forEach(checkbox => {
+        let check = JSON.parse(localStorage.getItem(checkbox.parentElement.dataset.title)) || [] ;
+        const content = checkbox.parentElement.dataset.content;
+
+        
         if(check.length > 0){
     
-            check.forEach(item_data => {
+           check.forEach(item_data => {
                 if(item_data === content){
                   
-                  item.checked = true;
+                  checkbox.checked = true;
         
-                  if(item.checked){
-                    item.querySelector('input').checked = true
-                    item.style.textDecoration = "line-through";
+                  if(checkbox.checked){
+                    //item.querySelector('input').checked = true
+                    checkbox.parentElement.style.textDecoration = "line-through";
                   }else {
-                    item.querySelector('input').checked = false
-                    item.style.textDecoration = "none";
+                    //item.querySelector('input').checked = false
+                    checkbox.parentElement.style.textDecoration = "none";
                   }
                 }
             })
@@ -43,27 +55,28 @@ if(items.length > 1){
 
 
     // end of the logic
-}
+} 
 
 
 let list_items = [];
 
 // created to deal with local storage
-items.forEach(item => {
-    if(localStorage.getItem(item.dataset.title)){
-        list_items = JSON.parse(localStorage.getItem(item.dataset.title))
+checkboxes.forEach(checkbox => {
+    if(localStorage.getItem(checkbox.parentElement.dataset.title)){
+        list_items = JSON.parse(localStorage.getItem(checkbox.parentElement.dataset.title))
     }
-    item.onclick = function(e){
-        let input = item.querySelector('input')
+    checkbox.onchange = function(e){
+        console.log()
         
         // start of the set logic
-        if(!input.checked){
-            input.checked = true;
-            item.style.textDecoration = "line-through";
-            const list_item = e.currentTarget.dataset.content
+        //if(!input.checked){
+        if(e.currentTarget.checked === true){
+            //input.checked = true;
+            checkbox.parentElement.style.textDecoration = "line-through";
+            const list_item = e.currentTarget.parentElement.dataset.content
             console.log(list_item);
             
-            const title = e.currentTarget.dataset.title
+            const title = e.currentTarget.parentElement.dataset.title
 
             list_items.includes(list_item) || list_items.push(list_item);
             console.log(list_items, 'title', title)
@@ -71,10 +84,10 @@ items.forEach(item => {
             localStorage.setItem(title, JSON.stringify(list_items))
         }
         else {
-            input.checked = false;
-            item.style.textDecoration = "none";
-            const list_item = e.currentTarget.dataset.content
-            const title = e.currentTarget.dataset.title
+            //input.checked = false;
+            checkbox.parentElement.style.textDecoration = "none";
+            const list_item = e.currentTarget.parentElement.dataset.content
+            const title = e.currentTarget.parentElement.dataset.title
             if(list_items.includes(list_item)){
                 let ind = list_items.indexOf(list_item)
                 list_items.splice(ind, 1)
@@ -94,11 +107,14 @@ colorsChanger.forEach(changer => {
         if(color === 'cornflowerblue'){
             document.body.classList.remove('crimson')
             document.body.classList.remove('black')
+            
+
         }
         else {
             document.body.classList.remove('crimson')
             document.body.classList.remove('black')
             document.body.classList.toggle(color)
+            localStorage.setItem('theme', color)
         }
     }
 })

@@ -2,7 +2,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const app = express()
+require('dotenv').config()
+
+
+// custom module
 const currentDate = require(__dirname + '/date.js');
+
 
 app.set("view engine", "ejs")
 app.use(express.static('public'))
@@ -10,7 +15,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // mongoose connection
 
-mongoose.connect('mongodb://localhost:27017/todosDB')
+const password = process.env.PASSWORD;
+mongoose.connect(`mongodb+srv://todo-admin:${password}@cluster0.vafjdjo.mongodb.net/todosDB`, {useNewUrlParser: true})
 
 
 const holders = {};
