@@ -130,7 +130,7 @@ h1 {
     border-top-right-radius: 3px;
     margin: 0;
     color: var(--body-color);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 
 }
 
@@ -216,7 +216,7 @@ form input:focus {
     margin: 5px;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    
 
 }
 
@@ -228,24 +228,20 @@ form input:focus {
 
 }
 
-.delete-link {
+.categories .delete-link {
     position: relative;
-    bottom: 1px;
-}
-
-
-
-.del {
     background-color:var(--primary-color);
     padding: 7px;
     color: var(--body-color);
+    
 }
 
-.del:hover {
+
+.delete-link:hover {
     color: red;
 }
 
-.cat-text {
+.category-text {
     padding: 6px;
     border: 1px solid var(--primary-color);
 
@@ -316,7 +312,6 @@ form.cat-form {
 footer.mobile {
     display: none;
 }
-
 
 @media (max-width: 850px){
     .aside {
@@ -422,6 +417,7 @@ footer.mobile {
 }
 
 
+
 @media (max-width: 545px){
     .aside {
         display: none;
@@ -463,9 +459,13 @@ footer.mobile {
     }
 
     .todo-bloc {
-        max-width: 500px;
+        max-width: 92%;
         min-width: 300px;
         
+    }
+
+    h1 {
+        font-size: 1.2rem;
     }
 
     form.cat-form {
@@ -524,3 +524,4 @@ footer.mobile {
         font-size: 24px;  
     }
 }
+

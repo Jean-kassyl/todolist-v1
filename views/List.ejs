@@ -29,7 +29,7 @@
             </div>
        
         <div class="todo-bloc">
-            <h1> <%= title === 'home'? date: title %></h1>
+            <h1> <%= title === 'home'? "Today is " + date: title %></h1>
             
             <ul>
                 <% if(todos.length > 0){  %>
@@ -71,11 +71,11 @@
                 <% cat.forEach(category => {  %> 
                   
                     <li>
-                        <a href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
-                            <span class="cat-text"><%= category.name %></span>
+                        <a class="category-text" href= <%= "/categories?category=" + category.name.split(' ').join('+')  %> > 
+                            <span ><%= category.name %></span>
                         </a>
                         <a class="delete-link" data-category = <%= category.name.split(' ').join('_') %> href=<%= '/category/delete/?name='+ category.name.split(' ').join('+') %>  >
-                            <span class="del">&#10005;</span>
+                            <span>&#10005;</span>
                         </a>
                     </li> 
                
