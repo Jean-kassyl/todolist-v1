@@ -231,22 +231,23 @@ app.get('/category/delete', function(req, res){
     let data = req.query.name
     let category = collectionFormater(data)
 
-    const deleteRoute = "http://localhost:3001/categories?category=" + data.split(' ').join('+')
-
-   
+    const deleteRoute = "categories?category=" + data.split(' ').join('+');
     
 
+  
     Categories.deleteOne({category: category}, function(err, re){
         if(err){
             console.log(err)
         } else {
-            //console.log("working fine")
+            //console.log("working fine") 
+            
             mongoose.connection.db.dropCollection(category, function(err, result){
                 if(err){
                     console.log(err)
                 } else {
                     //console.log("success")
-                    if(deleteRoute === req.headers.referer){
+                    if(req.headers.referer.includes(deleteRoute)){
+                       
                         res.redirect('/')
                        }else {
                         res.redirect(req.headers.referer)
