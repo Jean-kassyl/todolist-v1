@@ -14,11 +14,11 @@ let theme = localStorage.getItem('theme')
 
 if(theme){
     if(theme === "cornflowerblue" ){
-        document.body.classList.remove = 'crimson';
-        document.body.classList.remove = 'black';
+        document.body.classList.remove('crimson');
+        document.body.classList.remove('black');
     }else {
-        document.body.classList.remove = 'crimson';
-        document.body.classList.remove = 'black';
+        document.body.classList.remove('crimson');
+        document.body.classList.remove('black');
         document.body.classList.add(theme)
     }
 }
