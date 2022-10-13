@@ -212,10 +212,13 @@ app.post('/categories', function(req, res){
     
 })
 
+// for deleting todos on the dynamics route
 app.get('/categories/delete', function(req, res){
     let id = Number(req.query.id);
     let data = req.query.category
     let cat = collectionFormater(data)
+
+    console.log("hit categories delete")
     const Todo = mongoose.model(cat, singleTodoSchema)
     Todo.deleteOne({_id: id}, function(er, result){
         if(er){
@@ -231,9 +234,10 @@ app.get('/category/delete', function(req, res){
     let data = req.query.name
     let category = collectionFormater(data)
 
-    const deleteRoute = "categories?category=" + data.split(' ').join('+');
+    const deleteRoute = data.split(' ').join('+')
+    const originRequest = req.headers.referer
     
-
+    console.log('hit category delete')
   
     Categories.deleteOne({category: category}, function(err, re){
         if(err){
@@ -246,11 +250,12 @@ app.get('/category/delete', function(req, res){
                     console.log(err)
                 } else {
                     //console.log("success")
-                    if(req.headers.referer.includes(deleteRoute)){
-                       
+                    if(originRequest.includes(deleteRoute)){
+                        console.log("includes the delete route", originRequest)
                         res.redirect('/')
                        }else {
-                        res.redirect(req.headers.referer)
+                        console.log("the delete route is not included", originRequest)
+                        res.redirect(originRequest)
                        }
                 }
             })
